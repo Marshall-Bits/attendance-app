@@ -45,11 +45,17 @@ def attend():
     for student in students:
         print(f"Student: {student.name}, Time: {student.time_added}")
 
-    return 'Thanks {}'.format(name)
+    return f'Thanks {name}, your entry is registered at {datetime.now().strftime("%H:%M")}'
 
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+@app.route('/list', methods=['GET'])
+def list():
+    students = Student.query.all()
+    return render_template('list.html', students=students)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
