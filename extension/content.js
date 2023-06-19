@@ -16,7 +16,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         let targetTdElement;
         {
             for (const tdElement of tdElements) {
-                tdElement.click()
                 const spanElement = tdElement.querySelector('span');
                 if (spanElement.textContent.trim() === currentDate) {
                     targetTdElement = tdElement;
@@ -26,13 +25,30 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         }
 
         if (targetTdElement) {
-            
+
             const trElement = targetTdElement.closest('tr');
             // Find the <a> element inside the target <td> element, it is inside the seventh <td> element inside the trElement
             const buttonElement = trElement.querySelector('td:nth-child(7) a');
 
             if (buttonElement) {
                 buttonElement.click();
+                setTimeout(() => {
+                    const absentButton = document.querySelector('#mui-component-select-absent');
+                    if (absentButton) {
+                        absentButton.click();
+                        const listElement = document.querySelector('.MuiMenu-list');
+                        const nameElements = listElement.querySelectorAll('li');
+
+                        const names = Array.from(nameElements).map((nameElement) => {
+                            return nameElement.textContent.trim();
+                        });
+
+                        console.log(names);
+                        console.log('Absent button clicked.', absentButton);
+                    } else {
+                        console.log('Absent button not found.');
+                    }
+                }, 1000);
             } else {
                 console.log('Button not found.');
             }

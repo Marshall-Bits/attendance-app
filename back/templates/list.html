@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Student List</title>
 </head>
+
 <body>
-    <h1>Student List</h1>
-    <ul>
+    <h1>Today's attendance</h1>
+    <ul >
         {% for student in students %}
         <li>{{ student.name }}</li>
         {% endfor %}
     </ul>
+    <button >
+        <a href="{{ url_for('download_students') }}" download="student_list.csv">Download</a>
+    </button>
 </body>
+
 </html>
